@@ -11,8 +11,9 @@
  * with the intention to fully implement Detector when possible. */
 require_once('library/Detector/lib/ua-parser-php/UAParser.php'); $ua = UA::parse(); 
 
-/************* INCLUDE NEEDED FILES ***************/
-
+/* ==================
+ * Needed Files
+ * ================== */
 /*
 1. library/bones.php
     - head cleanup (remove rsd, uri links, junk css, ect)
@@ -25,19 +26,50 @@ require_once('library/Detector/lib/ua-parser-php/UAParser.php'); $ua = UA::parse
 	- customizing the post excerpt
 	- custom google+ integration
 	- adding custom fields to user profiles
-*/
-require_once('library/bones.php'); // if you remove this, bones will break
+*/ require_once('library/bones.php'); // if you remove this, bones will break
+
+/*
+2. library/custom-post-type.php
+    - an example custom post type
+    - example custom taxonomy (like categories)
+    - example custom taxonomy (like tags)
+*/ // No custom post-types yet for PLS :-)
+
+/*
+3. library/admin.php
+    - removing some default WordPress dashboard widgets
+    - an example custom dashboard widget
+    - adding custom login css
+    - changing text in footer of admin
+    - prevent users from disabling core plugins
+*/  require_once('library/admin.php'); // this comes turned off by default
+    require_once('library/custom-fields.php');
+
+/*
+4. library/translation/translation.php
+    - adding support for other languages
+*/ // require_once('library/translation/translation.php'); // this comes turned off by default
+/*
 
 
-/*********************
-THEME SUPPORT
-*********************/
+/* ==================
+ * Thumbnails
+ * ================== */
+set_post_thumbnail_size(125, 70, true);   // Default Thumbnail
+add_image_size( 'media-small', 350, 193, true );
+add_image_size( 'media-medium', 570, 321, true );
+add_image_size( 'media-large', 720, 405, true );
+add_image_size( 'media-jumbo', 1140, 641, true );
+
+add_image_size( 'feature-small', 720, 281, true);
+add_image_size( 'feature-medium', 1028, 402, true);
+add_image_size( 'feature-large', 1280, 500, true);
+add_image_size( 'feature-jumbo', 1366, 534, true);
+
+/* ==================
+ * Theme Support
+ * ================== */    
 add_theme_support('post-thumbnails');   
-
-// default thumb size   
-set_post_thumbnail_size(125, 70, true);   
-
-// wp custom background (thx to @bransonwerner for update)
 add_theme_support( 'custom-background',
     array( 
     'default-image' => '',  // background image default
@@ -47,13 +79,7 @@ add_theme_support( 'custom-background',
     'admin-preview-callback' => ''
     )
 );      
-
-// rss thingy           
 add_theme_support('automatic-feed-links'); 
-
-// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
-
-// adding post format support
 add_theme_support( 'post-formats',  
     array( 
         'aside',             // title less blurb
@@ -67,77 +93,16 @@ add_theme_support( 'post-formats',
         'chat'               // chat transcript 
     )
 );  
-
-// wp menus
 add_theme_support( 'menus' );  
 
-// registering wp3+ menus          
+/* ==================
+ * Built-In Menus */
 register_nav_menus(                      
     array( 
         'mobile-menu' => __( 'Mobile Menu', 'bonestheme' ),
         'secondary-menu' => __( 'Secondary Menu', 'bonestheme' )
     )
 );
-
-/*
-2. library/custom-post-type.php
-    - an example custom post type
-    - example custom taxonomy (like categories)
-    - example custom taxonomy (like tags)
-*/
-require_once('library/post-type--databases.php'); // you can disable this if you like
-/*
-3. library/admin.php
-    - removing some default WordPress dashboard widgets
-    - an example custom dashboard widget
-    - adding custom login css
-    - changing text in footer of admin
-    - prevent users from disabling core plugins
-*/
-require_once('library/admin.php'); // this comes turned off by default
-require_once('library/custom-fields.php');
-/*
-4. library/translation/translation.php
-    - adding support for other languages
-*/
-/*
-5. library/bundles/something.php
-    - bundles crucial plugins.
-*/
-//require_once('library/bundles/series/orgSeries.php');
-// require_once('library/translation/translation.php'); // this comes turned off by default
-
-/************* THUMBNAIL SIZE OPTIONS *************/
-
-// Thumbnail sizes
-add_image_size( 'media-small', 350, 193, true );
-add_image_size( 'media-medium', 570, 321, true );
-add_image_size( 'media-large', 720, 405, true );
-add_image_size( 'media-jumbo', 1140, 641, true );
-
-add_image_size( 'feature-small', 720, 281, true);
-add_image_size( 'feature-medium', 1028, 402, true);
-add_image_size( 'feature-large', 1280, 500, true);
-add_image_size( 'feature-jumbo', 1366, 534, true);
-/* 
-to add more sizes, simply copy a line from above 
-and change the dimensions & name. As long as you
-upload a "featured image" as large as the biggest
-set width or height, all the other sizes will be
-auto-cropped.
-
-To call a different size, simply change the text
-inside the thumbnail function.
-
-For example, to call the 300 x 300 sized image, 
-we would use the function:
-<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
-for the 600 x 100 image:
-<?php the_post_thumbnail( 'bones-thumb-600' ); ?>
-
-You can change the names and dimensions to whatever
-you like. Enjoy!
-*/
 
 /* ==================
  * $MENU Functions
@@ -150,9 +115,37 @@ you like. Enjoy!
  */ require_once('library/menu.php');
 
 /* ==================
+ * $SIDEBARS
+ * ================== */
+// Sidebars & Widgetizes Areas
+function bones_register_sidebars() {
+    register_sidebar(array(
+        'id' => 'home',
+        'name' => 'Front Page Sidebar (sans Container)',
+        'description' => 'This sidebar appears specifically on the front page. Use wisely. This sidebar has no container.',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="section-title hide-text">',
+        'after_title' => '</h3>',
+    ));
+
+    register_sidebar(array(
+        'id' => 'video',
+        'name' => 'Single Video Sidebar (sans Container)',
+        'description' => 'This sidebar appears specifically on the individual videos. Use wisely. This sidebar has no container.',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="section-title hide-text">',
+        'after_title' => '</h3>',
+    ));
+} // don't remove this bracket!
+
+/* ==================
+ * Helper Functions
+ * ================== */
+/* ==================
  * is_tree() function that tests if a page has a certain parent */
-function is_tree($pid)
-{
+function is_tree($pid) {
   global $post;
 
   $ancestors = get_post_ancestors($post->$pid);
@@ -170,39 +163,12 @@ function is_tree($pid)
 };
 
 /* ==================
- * $SIDEBARS
- * ================== */
-// Sidebars & Widgetizes Areas
-function bones_register_sidebars() {
-    register_sidebar(array(
-    	'id' => 'home',
-    	'name' => 'Front Page Sidebar (sans Container)',
-    	'description' => 'This sidebar appears specifically on the front page. Use wisely. This sidebar has no container.',
-    	'before_widget' => '<div id="%1$s">',
-    	'after_widget' => '</div>',
-    	'before_title' => '<h3 class="section-title hide-text">',
-    	'after_title' => '</h3>',
-    ));
-
-    register_sidebar(array(
-        'id' => 'video',
-        'name' => 'Single Video Sidebar (sans Container)',
-        'description' => 'This sidebar appears specifically on the individual videos. Use wisely. This sidebar has no container.',
-        'before_widget' => '<div id="%1$s">',
-        'after_widget' => '</div>',
-        'before_title' => '<h3 class="section-title hide-text">',
-        'after_title' => '</h3>',
-    ));
-} // don't remove this bracket!
-
-/* ==================
  * $URL PARAMETERS
  */ // http://codex.wordpress.org/Function_Reference/get_query_var
 function add_query_vars_filter( $vars ) {
     $vars[] = 'for';
     return $vars;
-}
-add_filter( 'query_vars', 'add_query_vars_filter' );
+} add_filter( 'query_vars', 'add_query_vars_filter' );
 
 /* ==================
  * $POST-TYPES in RESULTS
@@ -218,52 +184,8 @@ function namespace_add_custom_types( $query ) {
 add_filter( 'pre_get_posts', 'namespace_add_custom_types' );
 
 /* ==================
- * $POST-VIEWS
- */
-// function to display number of posts.
-function getPostViews($postID){
-    $count_key = 'post_views_count';
-    $count = get_post_meta($postID, $count_key, true);
-    if($count==''){
-        delete_post_meta($postID, $count_key);
-        add_post_meta($postID, $count_key, '0');
-        return "0 View";
-    }
-    return $count;
-}
-
-// function to count views.
-function setPostViews($postID) {
-    $count_key = 'post_views_count';
-    $count = get_post_meta($postID, $count_key, true);
-    if($count==''){
-        $count = 0;
-        delete_post_meta($postID, $count_key);
-        add_post_meta($postID, $count_key, '0');
-    }else{
-        $count++;
-        update_post_meta($postID, $count_key, $count);
-    }
-}
-
-
-
-// Add it to a column in WP-Admin
-add_filter('manage_posts_columns', 'posts_column_views');
-add_action('manage_posts_custom_column', 'posts_custom_column_views',5,2);
-function posts_column_views($defaults){
-    $defaults['post_views'] = __('Views');
-    return $defaults;
-}
-function posts_custom_column_views($column_name, $id){
-    if($column_name === 'post_views'){
-        echo getPostViews(get_the_ID());
-    }
-}
-
-/************* COMMENT LAYOUT *********************/
-		
-// Comment Layout
+ * Comments
+ * ================== */
 function bones_comments($comment, $args, $depth) {
    $GLOBALS['comment'] = $comment; ?>
 	<li <?php comment_class(); ?>>
@@ -295,8 +217,9 @@ function bones_comments($comment, $args, $depth) {
 <?php
 } // don't remove this bracket!
 
-/************* SEARCH FORM LAYOUT *****************/
-
+/* ==================
+ * Search
+ * ================== */
 // Search Form
 function sherman_wpsearch() {
     $form = '<form role="search" method="get" id="searchform" action="' . home_url( '/' ) . '">
