@@ -31,28 +31,28 @@ add_filter( 'plugin_action_links', 'lock_plugins', 10, 4 );
  */ // This removes admin panel options
 function remove_menus() {
 global $menu;
-    $restricted = array(__('Posts'), __('Media'), __('Pages'), __('Users'), __('Settings'), __('Comments'), __('Plugins'), __('Tools'));
+    $restricted = array(__('Posts'), __('Comments'), __('Tools'));
     end ($menu);
     while (prev($menu)){
         $value = explode(' ',$menu[key($menu)][0]);
         if(in_array($value[0] != NULL?$value[0]:"" , $restricted)){unset($menu[key($menu)]);}
     }
 }
-//add_action('admin_menu', 'remove_menus');
+add_action('admin_menu', 'remove_menus');
 
 /* ==================
  * The Dashboard
  */ // Controls appearance of dashboard widgets, refer to http://codex.wordpress.org/Dashboard_Widgets_API
 function disable_default_dashboard_widgets() {
 	//remove_meta_box('dashboard_right_now', 'dashboard', 'core');    // Right Now Widget
-	remove_meta_box('dashboard_recent_comments', 'dashboard', 'core'); // Comments Widget
-	remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');  // Incoming Links Widget
-	remove_meta_box('dashboard_plugins', 'dashboard', 'core');         // Plugins Widget
+	//remove_meta_box('dashboard_recent_comments', 'dashboard', 'core'); // Comments Widget
+	//remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');  // Incoming Links Widget
+	//remove_meta_box('dashboard_plugins', 'dashboard', 'core');         // Plugins Widget
 
-	 remove_meta_box('dashboard_quick_press', 'dashboard', 'core');  // Quick Press Widget
+	// remove_meta_box('dashboard_quick_press', 'dashboard', 'core');  // Quick Press Widget
 	//remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');   // Recent Drafts Widget
-	remove_meta_box('dashboard_primary', 'dashboard', 'core');         //
-	remove_meta_box('dashboard_secondary', 'dashboard', 'core');       //
+	//remove_meta_box('dashboard_primary', 'dashboard', 'core');         //
+	//remove_meta_box('dashboard_secondary', 'dashboard', 'core');       //
 
 	// removing plugin dashboard boxes
 	//remove_meta_box('yoast_db_widget', 'dashboard', 'normal');         // Yoast's SEO Plugin Widget

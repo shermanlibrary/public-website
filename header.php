@@ -79,7 +79,7 @@
 							--> <span class="tagline">
 									<?php if ( is_page( 'kids' ) ) : ?> Kids
 									<?php elseif ( is_page('teens') ) : ?> Teens
-									<?php elseif ( is_page('about') || is_tree( 29 ) ) : ?> About
+									<?php elseif ( is_page('about') || is_tree( 7 ) ) : ?> About
 									<?php elseif ( is_page('events') ) : ?> Events
 									<?php else : ?> Public
 									<?php endif; ?>
@@ -149,7 +149,7 @@
 			<input type="checkbox" id="top-menu" class="checkbox-toggle" />
 			<nav class="top-menu" role="navigation">
 				<div id="inner-menu" class="wrap clearfix">
-					<?php echo library_academy_menu('secondary', 'menu'); ?>
+					<?php wp_nav_menu( array('menu' => 'Top Menu' ) ); ?>
 				</div>
 			</nav>
 			<?php endif; ?>

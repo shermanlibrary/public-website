@@ -5,7 +5,7 @@ function library_academy_menu( $menu, $element ) {
 
         if ( $element == 'label' ) {
 
-            if ( is_page('about') || is_tree( 29 ) ) {
+            if ( is_page('about') || is_tree( 7 ) ) {
                 $element = 'About the Library';
             }
                 elseif ( is_page( 'events' ) || is_tree( 27 ) ) {
@@ -75,16 +75,14 @@ function library_academy_menu( $menu, $element ) {
         if ( $element == 'menu') {
 
             $args =  array(
-                //'echo'          => false,
-                'menu'          => 'secondary-menu',
+
+                'menu'          => 'Secondary Menu',
                 'container'     => false,
                 'menu_class'    => 'sub-menu',
-                'fallback_cb'   => false,
-                //'item_wrap'     => '%3$s'
+                'fallback_cb'   => false
             );
 
             wp_nav_menu( $arg );
-            //echo strip_tags( wp_nav_menu( $args ), '<a>' );
 
         } // if $element is 'menu'
 
