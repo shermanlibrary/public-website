@@ -15,7 +15,7 @@
 		</div><!--.inner-feature-->
 	</div>
 
-	<section class="align-center clearfix">
+	<!--<section class="align-center clearfix">
 		<div class="panel one-fourth games" style="background-color: #21aabd;">
 			<a class="align-bottom button epsilon" href="#">
 				Library Card
@@ -40,7 +40,7 @@
 			</a>
 		</div>
 
-	</section>
+	</section>-->
 			
 			<div id="content">
 			

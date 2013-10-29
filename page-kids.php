@@ -54,7 +54,7 @@
 
 			</section>
 
-			<?php get_template_part('template--info-panels'); ?>			
+			<?php //get_template_part('template--info-panels'); ?>			
 			<?php get_template_part('template--assorted-features'); ?>
 			<?php get_template_part('template--loop'); ?>
 

@@ -103,15 +103,19 @@ SCRIPTS & ENQEUEING
 // loading modernizr and jquery, and reply script 
 function bones_scripts_and_styles() {
   if (!is_admin()) {
+
+
+    wp_deregister_script('jquery');
+    wp_register_script( 'jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', array(), '1.10.2', false );
   
     // modernizr (without media query polyfill)
     wp_register_script( 'bones-modernizr', get_template_directory_uri() . '/library/js/libs/modernizr.custom.min.js', array(), '2.5.3', false );
  
     // register main stylesheet
-    wp_register_style( 'pls-stylesheet', 'http://systems.library.nova.edu/cdn/styles/css/public-global/public.css', array(), '0.0.1', 'all' );
+    wp_register_style( 'pls-stylesheet', '//systems.library.nova.edu/cdn/styles/css/public-global/public.css', array(), '0.0.1', 'all' );
 
     // ie-only style sheet
-    wp_register_style( 'pls-ie-only', 'http://systems.library.nova.edu/cdn/styles/css/public-global/public-ie.css', array(), '0.0.1' );
+    wp_register_style( 'pls-ie-only', '//systems.library.nova.edu/cdn/styles/css/public-global/public-ie.css', array(), '0.0.1' );
     
     // comment reply script for threaded comments
     if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
@@ -135,6 +139,7 @@ function bones_scripts_and_styles() {
     using the google cdn. That way it stays cached
     and your site will load faster.
     */
+
     wp_enqueue_script( 'jquery' ); 
     wp_enqueue_script( 'pls-js' ); 
     

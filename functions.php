@@ -223,7 +223,7 @@ function bones_comments($comment, $args, $depth) {
 // Search Form
 function sherman_wpsearch() {
     $form = '<form role="search" method="get" id="searchform" action="' . home_url( '/' ) . '">
-    <input type="search" value="' . get_search_query() . '" name="s" id="s" placeholder="'.esc_attr__('What are you looking for?','bonestheme').'" x-webkit-speech speech />
+    <input type="search" value="' . get_search_query() . '" name="s" id="s" placeholder="'.esc_attr__('Search our Website','bonestheme').'" x-webkit-speech speech />
     <input class="search-button" type="submit" id="searchsubmit" value="'. esc_attr__('Go') .'" />
     </form>';
     return $form;
