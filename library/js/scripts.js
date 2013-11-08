@@ -43,10 +43,46 @@ jQuery(document).ready(function($) {
       });
 
     /* ==================
-     * $FitText
-     */ // You know, for glorious branding ...
-     //(function($){$.fn.fitText=function(kompressor,options){var compressor=kompressor||1,settings=$.extend({"minFontSize":Number.NEGATIVE_INFINITY,"maxFontSize":Number.POSITIVE_INFINITY},options);return this.each(function(){var $this=$(this);var resizer=function(){$this.css("font-size",Math.max(Math.min($this.width()/(compressor*10),parseFloat(settings.maxFontSize)),parseFloat(settings.minFontSize)))};resizer();$(window).on("resize.fittext orientationchange.fittext",resizer)})}})(jQuery);
-     //$('.fit-text').fitText({maxFontSize: '117px'})
+     * Load Spotlight */
+     get_spotlight = function() {
+
+        $('[data-spotlight]').each(function() {
+
+            var el                  =   $(this),
+                spotlightAPI        =   '',
+                spotlightHTML       =   '',
+                spotlightPost       =   $(this).data('post'),
+                spotlightType       =   $(this).data('spotlight'),
+                spotlightURL        =   'http://sherman2.library.nova.edu/sites/spotlight/api/taxonomy/get_taxonomy_posts/?taxonomy=library-audience&slug=public&callback=?';
+
+            if ( spotlightType == 'database' ) {
+
+                spotlightAPI = spotlightURL + '&post_type=spotlight_databases';
+            }
+
+            $.getJSON( spotlightAPI )
+                .success( function( response ) {
+
+                    var count = 0;
+
+                    $.each( response.posts, function( i, post ) {
+
+                        count++;
+
+                        if ( count == spotlightPost ) {
+                            //console.log( post.thumbnail_images['media-medium']['url'] );
+                            spotlightHTML = '<img src=' + post.thumbnail_images['media-medium']['url'] + '>';
+                        }
+
+                    });
+
+                    el.html( spotlightHTML );
+
+                });
+        });
+    }
+
+    get_spotlight();
 
     /*
     Responsive jQuery is a tricky thing.

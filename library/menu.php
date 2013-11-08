@@ -8,11 +8,10 @@ function library_academy_menu( $menu, $element ) {
             if ( is_page('about') || is_tree( 7 ) ) {
                 $element = 'About the Library';
             }
-                elseif ( is_page( 'events' ) || is_tree( 27 ) ) {
-                    $element = 'Events';
-                } elseif ( is_page( 'kids' ) || is_tree( 9 ) ) {
-                    $element = 'Kids';
-                }
+                elseif ( is_page('collection') || is_tree( 118 ) ) { $element = 'Our Collection'; }
+                elseif ( is_page( 'events' ) || is_tree( 27 ) ) { $element = 'Events'; } 
+                elseif ( is_page( 'kids' ) || is_tree( 9 ) ) { $element = 'Kids'; }
+                elseif ( is_page( 'services' ) || is_tree( 34 ) ) { $element = 'What We Offer'; }
            
             else { $element = ''; }            
             return $element;
@@ -46,9 +45,10 @@ function library_academy_menu( $menu, $element ) {
 
                 } elseif ( get_query_var( 'for' ) == 'teens' ) {
 
-                        $element = 'For Teens';
+                    $element = 'For Teens';
+                }
 
-                    }
+                elseif ( is_page( 'collection' ) ) { $element = ''; }
 
                 elseif ( is_page( 'events' ) ) {
 

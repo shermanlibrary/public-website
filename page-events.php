@@ -113,7 +113,32 @@
 						
 					</section>
 
-					<section class="event caption small"  style="margin-top: 1em;">
+					<section class="panels align-center clearfix">
+						<div class="panel one-half catalog">
+							<a class="align-bottom button">
+								Exhibits
+							</a>
+						</div>
+						<div class="panel one-half event">
+							<a class="align-bottom button">
+								Classes
+							</a>
+						</div>
+
+						<div class="panel one-half kids">
+							<a class="align-bottom button">
+								For Kids
+							</a>
+						</div>
+
+						<div class="panel one-half teens">
+							<a class="align-bottom button">
+								For Teens
+							</a>
+						</div>
+					</section>
+
+					<!--<section class="event caption small"  style="margin-top: 1em;">
 
 						<div class="fourcol first">
 							<div class="wrap">
@@ -146,7 +171,7 @@
 					
 						</div>
 
-					</section>
+					</section>-->
 
 				</div>
 

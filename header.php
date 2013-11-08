@@ -55,7 +55,7 @@
 	
 		<div id="container">
 
-			<?php get_template_part('template--global-menu'); ?>
+		<?php if ( !$ua->isMobile ) { get_template_part('template--global-menu'); } ?>
 			
 		<!-- Header
 		======================
@@ -78,9 +78,12 @@
 							======================
 							--> <span class="tagline">
 									<?php if ( is_page( 'kids' ) ) : ?> Kids
-									<?php elseif ( is_page('teens') ) : ?> Teens
-									<?php elseif ( is_page('about') || is_tree( 7 ) ) : ?> About
-									<?php elseif ( is_page('events') ) : ?> Events
+									<?php elseif ( is_page( 'teens' ) ) : ?> Teens
+									<?php elseif ( is_page( 'about' ) || is_tree( 7 ) ) : ?> About
+									<?php elseif ( is_page( 'events' ) ) : ?> Events
+									<?php elseif ( is_page( 'research' ) ) : ?> Research
+									<?php elseif ( is_page( 'services' ) || is_tree( 34 ) ) : ?> Services
+									<?php elseif ( is_page( 'collection' ) || is_tree( 118 ) ) : ?> Collection
 									<?php else : ?> Public
 									<?php endif; ?>
 								</span>		

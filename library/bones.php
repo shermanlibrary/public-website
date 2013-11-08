@@ -121,12 +121,7 @@ function bones_scripts_and_styles() {
     if ( is_singular() AND comments_open() AND (get_option('thread_comments') == 1)) {
     	wp_enqueue_script( 'comment-reply' );
     }
-    
-    //  load mediaelement.js (and styles) for the instructional video post-type.
-    if ( is_singular( 'spotlight_databases' ) || is_front_page() ) {
-    	wp_enqueue_style( 'wp-mediaelement' );
-    	wp_enqueue_script( 'wp-mediaelement' );
-    }
+
     //adding scripts file in the footer
     wp_register_script( 'pls-js', get_template_directory_uri() . '/library/js/scripts.js', array( 'jquery' ), '', true );
     

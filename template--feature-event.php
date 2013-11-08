@@ -1,4 +1,5 @@
 			<?php 
+			
 			/* ==================
 			 * Featured Spotlight
 			 * ================== */
@@ -23,60 +24,80 @@
 
 			$feature_jSON = json_decode( wp_remote_retrieve_body( wp_remote_get( $spotlight_taxonomy_api_url . '?taxonomy=' . $spotlight_taxonomy .'&slug=' . $library_audience . '&post_type=spotlight_events&orderby=rand', array( 'sslverify' => false) ) ), true); 
 			$feature = 0;
-			foreach ($feature_jSON['posts'] as $response) : ?>
 
-				<?php if ( !$response['custom_fields']['overlay_title'][0] ) : ?>
+			foreach ($feature_jSON['posts'] as $response) : 
+				
+				// 1.) Does event have the pre-requisite content?
+				if ( !$response['custom_fields']['overlay_title'][0] ) : 
 
-				<?php else : ?>
+				// 2.) If there is no end-date, is the start-date passed?
+				elseif ( !$response['custom_fields']['event_end'][0] 
+						&& strtotime( $response['custom_fields']['event_start'][0]) < strtotime('-1 day') ) : 
+				
+				// 3.) If there is an end-date, has it passed?
+				elseif ( $response['custom_fields']['event_end'][0]
+						&& strtotime( $response['custom_fields']['event_end'][0] ) < strtotime('-1 day') ) : 
 
-					<?php if ( $response['custom_fields']['is_feature'][0] == 'Yes') : $feature++;  if ( $feature == 1 ) :?>
-
-				<?php // Response Variables
+				else : if ( $response['custom_fields']['is_feature'][0] == 'yes') : $feature++;  if ( $feature == 1 ) : 
+				// Response Variables
 				$feature_buttonText				=	$response['custom_fields']['overlay_button_text'][0];
-				$feature_date					=	$response['custom_fields']['event_date'][0];
-				$feature_image_id				=	$response['custom_fields']['graphic'][0];
+
+				// Date and Time
+				$feature_allday					= false;
+				$feature_multiday				= false;				
+				$feature_date_start				=	$response['custom_fields']['event_start'][0];
+				$feature_date_options			=	$response['custom_fields']['scheduling_options'][0];
+
+				if ( strpos( $feature_date_options, 'multiday' ) !== false ) {
+					$feature_multiday			= true;
+					$feature_date_end			=	$response['custom_fields']['event_end'][0];
+				}
+
+				if ( strpos( $feature_date_options, 'allday' ) !== false ) {
+					$feature_allday				= true;
+				}
+
+				// Special Layout Rules
+				$feature_alignment				=	$response['custom_fields']['overlay_align'][0];
+				$feature_show_desc 				= ( $response['custom_fields']['overlay_description'][0] == 'no' ? false : true );
+
+		
+				// Content
+				$feature_description			=	$response['excerpt'];
 				$feature_imageTablet			=	$response['thumbnail_images']['feature-medium']['url'];
+				$feature_imageSquarescreen		=	$response['thumbnail_images']['feature-large']['url'];
 				$feature_imageWidescreen		=	$response['thumbnail_images']['feature-jumbo']['url'];
 				$feature_link					=	$response['custom_fields']['overlay_link'][0];
 				$feature_tagline				=	$response['custom_fields']['overlay_tagline'][0];
 				$feature_title					=	$response['custom_fields']['overlay_title'][0];
 
+				if ( $ua->isTablet ) { $feature_ress_image = $feature_imageTablet; } elseif ( $ua->isComputer ) { $feature_ress_image = $feature_imageWidescreen; } else { $feature_ress_image	= $feature_imagePhone; }
 
-				if ( $ua->isTablet ) {
-					$feature_ress_image = $feature_imageTablet;
-				} elseif ( $ua->isComputer ) {
-					$feature_ress_image	= $feature_imageWidescreen;
-				} else {
-					$feature_ress_image	= $feature_imagePhone;
-				}
 				?>
 
-				<div class="feature feature-event" id="feature" style="background-image: url(<?php echo $feature_ress_image; ?>); ">				
-
-					<div id="inner-feature" class="wrap clearfix">
-						
-							<section class="promotion">
-
+				<article class="feature feature-event" itemscope itemtype="http://schema.org/Event" style="background-image: url(<?php echo $feature_ress_image; ?>); ">				
+					<div class="wrap clearfix">
+							<div class="promotion <?php echo $feature_alignment ?> <?php echo ( $feature_show_desc === true ? 'has-excerpt' : '' ); ?>">
 								<header>
+									<h3 class="gamma promotion-title" itemprop="name"><?php echo $feature_title; ?></h3>
 
-									<h3 class="gamma promotion-title">
-										<?php echo $feature_title; ?>
-									</h3>
+									<time class="delta" datetime="<?php echo $feature_date_start . ( $feature_multiday === true ? '-' . $feature_date_end : ''); ?>"> 
+										<span itemprop="startDate" content="<?php echo $feature_date_start ?>"><?php echo date('l, F j', strtotime($feature_date_start) ); ?></span> <?php echo ( $feature_multiday === false ? '' : '- ' . '<span itemprop="endDate" content="' . $feature_date_end . '">' . date('l, F j', strtotime($feature_date_end) ) . '</span>' ); ?>
+										<?php echo ( $feature_allday === false ? 'Not Allday' : '' ); ?>
+									</time>
 
 								</header>
-
-								<time class="delta" datetime="<?php echo $feature_date; ?>"> 
-									<?php echo date('l, F j', $feature_date); ?> 
-								</time>
-
-								<a class="button green zeta" href="<?php echo $feature_link; ?>">
+								
+								<?php if ( $ua->isComputer ) { echo ( $feature_show_desc === true ? '<p class="excerpt" itemprop="description">' . strip_tags( $feature_description ) . '</p>' : '' ); } ?>
+								
+								<a class="button green zeta" href="<?php echo $feature_link; ?>" itemprop="url">
 									<?php echo $feature_buttonText; ?>
 								</a>
 
-							</section>
+							</div>
 
 					</div>
-				</div>
+				</article>
 						<?php endif; ?>
 					<?php endif; ?>
 				<?php endif; ?>

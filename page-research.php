@@ -1,4 +1,4 @@
-<?php get_header(); //get_template_part( 'template--feature-event' ); ?>
+<?php get_header(); ?>
 
 	<!-- Browse the Catalog
 	======================
@@ -8,7 +8,7 @@
 
 				<div class="fourcol first">
 				<header class="gamma no-margin">
-					<em>Search the Catalog</em>
+					<em>Quick Search</em>
 				</header>
 				</div>
 
@@ -23,52 +23,77 @@
 
 		</section><!--/.catalog-->
 
-		<nav class="align-center clearfix">
+	<!-- Research Types
+	======================
+	-->	<nav class="align-center panels clearfix">
 
-			<div class="panel one-fourth event">
-				<a class="align-bottom button epsilon" href="#">
-					Events
+			<div class="panel one-fourth genealogy">
+				<a class="align-bottom button" href="<?php echo get_permalink( 133 ); ?>" title="<?php echo get_the_title( 123 ); ?>">
+					Genealogy
 				</a>
 			</div>
 
-			<div class="panel one-fourth books">					
-
-				<a class="align-bottom button epsilon" href="#">
-					Raise a Reader
-				</a>
-
-			</div>
-			
-			<div class="panel one-fourth research">
-
-				<a class="align-bottom button epsilon" href="#">
+			<div class="panel one-fourth bus">
+				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&cat=kid&col=p" title="Business Databases and Resources in the Alvin Sherman E-Library">
 					Homework Helpers
 				</a>
-
 			</div>
 
-			<div class="panel one-fourth" style="background-color: #75D4BA;">
-				<a class="align-bottom button epsilon" href="#">
-					Schools
+			<div class="panel one-fourth piechart">
+				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&col=p&cat=zbu" title="Business Databases and Resources in the Alvin Sherman E-Library">
+					Business
+				</a>
+			</div>
+
+			<div class="panel one-fourth heart">
+				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&cat=med&col=p" title="Health and Medicine Databases and Resources in the Alvin Sherman E-Library">
+					Health
+				</a>
+			</div>
+
+			<div class="panel one-fourth compose">
+				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&col=p&cat=ztr" title="Teacher Databases and Resources in the Alvin Sherman E-Library">
+					Teacher Resources
+				</a>
+			</div>
+
+
+			<div class="panel one-fourth guides">
+				<a class="align-bottom button" href="http://nova.campusguides.com/" title="Topical Guides and Tutorials made by NSU Librarians">
+					Library Guides
+				</a>
+			</div>
+
+			<div class="panel one-fourth research">
+				<a class="align-bottom button" href="//sherman.library.nova.edu/e-library/index.php?col=p" title="Databases and Resources in the Alvin Sherman E-Library">
+					All Databases
+				</a>
+			</div>
+
+			<div class="panel one-fourth research">
+				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&cat=spa&col=p" title="Spanish Language Databases and Resources in the Alvin Sherman E-Library">
+					Recursos en Español
 				</a>
 			</div>
 
 		</nav>
 
-			<?php //get_template_part('template--info-panels'); ?>			
-			<?php get_template_part('template--assorted-features'); ?>
+	<!-- The Loop
+	======================
+	--> <div id="content">
+		
+			<div id="inner-content" class="wrap clearfix">	
 
-				<div class="wrap clearfix" style="margin-top:3em;">
-					<div class="fourcol first">
-						<?php get_sidebar('kids'); ?>
-					</div>
-			<div class="eightcol last">
-<!-- Helios Feed
+				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+			    
+			    <div class="eightcol last clearfix">
+
+				<!-- Helios Feed
 				======================
 				-->	<section class="feed">
 
 						<?php
-						$feed = fetch_feed( 'http://sherman.library.nova.edu/helios/rss/feed.php?l=3,14,4' ); 
+						$feed = fetch_feed( 'http://sherman.library.nova.edu/helios/rss/feed.php?l=15,11,12' ); 
 
 						if ( !is_wp_error( $feed ) ) :
 
@@ -131,6 +156,18 @@
 						<?php endif; ?>
 						</ul>
 					</section>
-			</div>			
-			</div>
+					    
+					    </div>
+
+						<?php endwhile; endif; ?>
+
+					<div class="fourcol first">
+
+					<!--<div class="media" data-spotlight="database" data-post="1"></div>-->
+
+
+			</div> <!-- end #inner-content -->
+
+		</div> <!-- end #content -->	
+
 <?php get_footer(); ?>

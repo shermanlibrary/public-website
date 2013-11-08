@@ -9,7 +9,6 @@
 		
 			<div id="inner-content" class="wrap clearfix">	
 
-				<section id="welcome" class="clearfix">
 				    <div id="main" class="sevencol first clearfix" role="main">
 
 				    	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
@@ -37,9 +36,6 @@
 					    <?php endwhile; ?>	
 					
     				</div> <!-- end #main -->
-
-    				<?php get_sidebar( 'home' ); ?>
-				</section>
 
 			</div> <!-- end #inner-content -->
 

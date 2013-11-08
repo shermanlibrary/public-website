@@ -130,14 +130,25 @@ function bones_register_sidebars() {
     ));
 
     register_sidebar(array(
-        'id' => 'video',
-        'name' => 'Single Video Sidebar (sans Container)',
-        'description' => 'This sidebar appears specifically on the individual videos. Use wisely. This sidebar has no container.',
+        'id' => 'kids',
+        'name' => 'Sidebar for Kids!',
+        'description' => 'This sidebar appears specifically on the kids page. Use wisely. This sidebar has no container.',
         'before_widget' => '<div id="%1$s">',
         'after_widget' => '</div>',
         'before_title' => '<h3 class="section-title hide-text">',
         'after_title' => '</h3>',
     ));
+
+    register_sidebar(array(
+        'id' => 'teens',
+        'name' => 'Sidebar for Teens!',
+        'description' => 'This sidebar appears specifically on the teens page. Use wisely. This sidebar has no container.',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="section-title hide-text">',
+        'after_title' => '</h3>',
+    ));
+
 } // don't remove this bracket!
 
 /* ==================
