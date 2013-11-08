@@ -163,7 +163,9 @@
 
 					<div class="fourcol first">
 
-					<!--<div class="media" data-spotlight="database" data-post="1"></div>-->
+						<?php get_sidebar( 'spotlight' ); ?>
+
+					</div>
 
 
 			</div> <!-- end #inner-content -->
