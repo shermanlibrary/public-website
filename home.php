@@ -1,13 +1,10 @@
-<?php define('DONOTCACHEPAGE', true); define('DONOTCACHEOBJECT', true); get_header(); ?>		
+<?php get_header(); ?>		
 			
-	<?php if ( $ua->isTablet || $ua->isComputer ) { 
-
-		get_template_part( 'template--feature-event' ); 
-	} ?>
+	<?php if ( $ua->isComputer ) { get_template_part( 'template--feature-event' ); }?>	
 
 	<!-- Browse the Catalog
 	======================
-	-->	<section class="catalog search shadow">
+	-->	<section class="catalog search">
 
 			<div class="wrap clearfix">
 
@@ -19,7 +16,7 @@
 
 				<div class="eightcol last">
 					<form class="align-left" role="search" method="get" id="searchform" action="#">
-					    <input type="search" value="" name="s" id="s" placeholder="<?php echo esc_attr__('Harry Potter ...','bonestheme') ?>" x-webkit-speech speech />
+					    <input type="search" value="" name="s" id="s" placeholder="<?php echo esc_attr__(' Ender\'s Game, Call of Duty, or anything else!','bonestheme') ?>" x-webkit-speech speech />
 					    <input class="search-button" type="submit" id="searchsubmit" value="<?php echo esc_attr__('Find') ?>" />
 				    </form>
 			    </div>
@@ -53,12 +50,11 @@
 
 				<div class="panel one-fourth new-and-good">
 					<a class="align-bottom button epsilon" href="#">
-						Recommended
+						Picks
 					</a>
 				</div>
 
-
-				<div class="panel one-fourth kids" style="background-color: #E2624F;">
+				<div class="panel one-fourth kids">
 					<a class="align-bottom button epsilon" href="<?php echo get_permalink( 72 ); ?>" title="<?php echo get_the_title( 72 ); ?>">
 						Kids
 					</a>
@@ -73,7 +69,7 @@
 
 				<div class="panel one-fourth compose">
 					<a class="align-bottom button epsilon" href="#">
-						Blog
+						News
 					</a>
 				</div>
 
@@ -84,11 +80,13 @@
 				</div>
 
 
-			</nav>
+		</nav>
 
 			<?php get_template_part('template--info-panels'); ?>
 
-			<?php //if ( $ua->isTablet || $ua->isComputer ) { get_template_part('template--assorted-features'); } ?>
+
+			<?php //if ( $ua->isComputer ) { get_template_part('template--assorted-features'); } ?>
+			<br>
 			<?php //if ( $ua->isTablet || $ua->isComputer ) { get_template_part('template--loop'); } ?>
 
 <?php get_footer(); ?>

@@ -29,18 +29,19 @@ if (!window.getComputedStyle) {
 jQuery(document).ready(function($) {
 
 
-    $('.book').each(function() {
+    /*$('.book').each(function() {
 
-        var book = $(this);
+        var book = $(this),
+            isbn = book.data('isbn');
 
-        $.getJSON('https://www.googleapis.com/books/v1/volumes?q=isbn:0553283685&key=AIzaSyDJryVZGwUhNscwwHO2Xq-JT-PdPGLrQ84', function( data ) {
+        $.getJSON('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn + '&key=AIzaSyDJryVZGwUhNscwwHO2Xq-JT-PdPGLrQ84&country=US', function( data ) {
             $.each( data.items, function( i, item ) {
             var cover    = item.volumeInfo.imageLinks.thumbnail;
             book.find('.cover > img').attr('src', cover);
           });
         });
 
-      });
+      });*/
 
     /* ==================
      * Load Spotlight */
@@ -49,34 +50,73 @@ jQuery(document).ready(function($) {
         $('[data-spotlight]').each(function() {
 
             var el                  =   $(this),
-                spotlightAPI        =   '',
-                spotlightHTML       =   '',
-                spotlightPost       =   $(this).data('post'),
-                spotlightType       =   $(this).data('spotlight'),
-                spotlightURL        =   'http://sherman2.library.nova.edu/sites/spotlight/api/taxonomy/get_taxonomy_posts/?taxonomy=library-audience&slug=public&callback=?';
+                audience            =   el.data( 'audience' ),
+                postNo              =   el.data('post'),
+                type                =   el.data('spotlight'),
+                baseAPI             =   'http://sherman2.library.nova.edu/sites/spotlight/api/taxonomy/get_taxonomy_posts/?taxonomy=library-audience&callback=?',
 
-            if ( spotlightType == 'database' ) {
+                // placeholders
+                api, category, markup;
 
-                spotlightAPI = spotlightURL + '&post_type=spotlight_databases';
+            // Who is the audience?
+            baseAPI = baseAPI + '&slug=' + ( audience ? audience : 'public' );
+
+
+            if ( type === 'database' ) {
+
+                api = baseAPI + '&post_type=spotlight_databases';
+            } 
+
+            else if ( type === 'event' ) {
+
+                api = baseAPI + '&post_type=spotlight_events';
+
             }
 
-            $.getJSON( spotlightAPI )
+            $.getJSON( api )
                 .success( function( response ) {
 
                     var count = 0;
 
                     $.each( response.posts, function( i, post ) {
 
-                        count++;
+                        if ( type === 'event' ) {
 
-                        if ( count == spotlightPost ) {
-                            //console.log( post.thumbnail_images['media-medium']['url'] );
-                            spotlightHTML = '<img src=' + post.thumbnail_images['media-medium']['url'] + '>';
+                            if ( post.custom_fields['overlay_title'][0] && post.custom_fields['is_feature'][0] == 'No' ) {
+
+                                count++;
+
+                                if ( count == postNo ) {
+
+                                    markup = '<section class="force-ratio shadow" style="overflow: hidden; background-image: url(' + post.thumbnail_images['media-medium']['url'] + '); background-size: 100%;">';
+                                    markup +=  '<div class="promotion" style="background-color: #4b5971; margin-top: 28%; color:white; padding: .5em 0; border-top: 2px solid white;">';
+                                    markup += '<header class="wrap">';
+                                    markup += '<h3 class="epsilon no-margin" style="color: white;">' + post.title + '</h3>';
+                                    markup += '<time class="zeta no-margin"> Now through December 1st </time>';
+                                    markup += '</header>';
+                                    markup += '<div class="description wrap zeta" style="font-size: .9em; line-height: 1;">';
+                                    markup += 'Sauce piquante remoulade mirliton bread pudding cayenne alligator etoufee cayenne.';
+                                    markup += '</div>';
+                                    markup += '</div>';
+                                    markup += '</section>';
+                                }
+
+                            }
+                        }
+
+                        else if ( type === 'database' ) {
+
+                            count++;
+
+                            if ( count == postNo ) {
+                                //console.log( post.thumbnail_images['media-medium']['url'] );
+                                markup = '<img src=' + post.thumbnail_images['media-medium']['url'] + '>';
+                            }
                         }
 
                     });
 
-                    el.html( spotlightHTML );
+                    el.html( markup );
 
                 });
         });

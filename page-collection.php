@@ -1,8 +1,10 @@
 <?php get_header(); ?>
 
+	<?php get_template_part( 'template--recommendation-feature' ); ?>
+
 	<!-- Browse the Catalog
 	======================
-	-->	<section class="catalog search shadow">
+	-->	<section class="catalog search">
 
 			<div class="wrap clearfix">
 
@@ -80,6 +82,7 @@
 	<!-- The Loop
 	======================
 	--> <div id="content">
+
 		
 			<div id="inner-content" class="wrap clearfix">	
 
@@ -102,5 +105,7 @@
 			</div> <!-- end #inner-content -->
 
 		</div> <!-- end #content -->	
+
+	
 
 <?php get_footer(); ?>

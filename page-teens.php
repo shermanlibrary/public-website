@@ -1,17 +1,14 @@
-<?php get_header(); ?>
-	<?php get_template_part( 'template--feature-event' ); ?>
+<?php get_header(); //get_template_part( 'template--feature-event' ); ?>
 
 	<!-- Browse the Catalog
 	======================
-	-->	<section class="catalog search">
+	-->	<section class="catalog search shadow">
 
 			<div class="wrap clearfix">
 
 				<div class="fourcol first">
 				<header class="gamma no-margin">
-					<em>
-						<?php echo ( get_query_var( 'for' ) === 'kids' ? 'Programs for Children' : 'Find an event') ?>
-					</em>
+					<em>Search the Catalog</em>
 				</header>
 				</div>
 
@@ -26,75 +23,52 @@
 
 		</section><!--/.catalog-->
 
-	<!-- Research Types
-	======================
-	-->	<nav class="align-center panels clearfix">
+		<nav class="align-center clearfix">
 
-			<?php if ( get_query_var( 'for' ) === 'kids' ) : ?>
-			<div class="panel one-fourth books">
-				<a class="align-bottom button" href="?for=kids">
-					Storytimes
-				</a>
-			</div>
-
-			<div class="panel one-fourth books">
-				<a class="align-bottom button" href="?for=kids">
-					Wags and Tales
-				</a>
-			</div>
-
-			<div class="panel one-fourth books">
-				<a class="align-bottom button" href="?for=kids">
-					LEGO Builders Club
+			<div class="panel one-fourth event">
+				<a class="align-bottom button epsilon" href="#">
+					Teen Events
 				</a>
 			</div>
 
 			<div class="panel one-fourth research">
-				<a class="align-bottom button" href="?for=kids">
-					After School S.T.E.M.
+
+				<a class="align-bottom button epsilon" href="#">
+					Homework Helpers
 				</a>
+
 			</div>
 
-			<?php else : ?>
+			<div class="panel one-fourth help">					
 
-			<div class="panel one-fourth kids">
-				<a class="align-bottom button" href="?for=kids">
-					Kids &amp; Families
+				<a class="align-bottom button epsilon" href="#">
+					Volunteer
 				</a>
-			</div>			
 
-			<div class="panel one-fourth teens">
-				<a class="align-bottom button" href="?for=teens" title="Business Databases and Resources in the Alvin Sherman E-Library">
-					Teens
+			</div>
+			
+			<div class="panel one-fourth games">
+				<a class="align-bottom button epsilon" href="#">
+					What We're Playing
 				</a>
 			</div>
-
-			<div class="panel one-fourth piechart">
-				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&col=p&cat=zbu" title="Business Databases and Resources in the Alvin Sherman E-Library">
-					Exhibits
-				</a>
-			</div>
-
-			<div class="panel one-fourth heart">
-				<a class="align-bottom button" href="http://sherman.library.nova.edu/e-library/index.php?action=subject&cat=med&col=p" title="Health and Medicine Databases and Resources in the Alvin Sherman E-Library">
-					Lectures &amp; Classes
-				</a>
-			</div>
-
-			<?php endif; ?>
 
 		</nav>
+		
+			<?php get_template_part('template--assorted-features'); ?>
 
-		<div class="assorted-features wrap clearfix">
+				<div class="wrap clearfix" style="margin-top:3em;">
 
-			<div class="eightcol first">
-
-				<!-- Helios Feed
+					<div class="fourcol first">
+						<?php get_sidebar('kids'); ?>
+					</div>
+			<div class="eightcol last">
+<!-- Helios Feed
 				======================
-				-->	<section class="feed" style="margin-top: 4em;">
+				-->	<section class="feed" style="margin-top: 5em;">
 
 						<?php
-						$feed = fetch_feed( 'http://sherman.library.nova.edu/helios/rss/feed.php?s=3' ); 
+						$feed = fetch_feed( 'http://sherman.library.nova.edu/helios/rss/feed.php?l=2' ); 
 
 						if ( !is_wp_error( $feed ) ) :
 
@@ -157,17 +131,6 @@
 						<?php endif; ?>
 						</ul>
 					</section>
-
+			</div>			
 			</div>
-
-			<div class="sidebar fourcol last" style="margin-top:4em;">
-				
-				<div class="spotlight media" data-spotlight="event" data-audience data-category data-post="1"></div>
-				<div class="spotlight media" data-spotlight="event" data-audience data-category data-post="2"></div>
-				
-
-			</div>
-		</div>
-
-
 <?php get_footer(); ?>

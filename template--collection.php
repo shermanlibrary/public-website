@@ -6,20 +6,22 @@ Template Name: Collection
 
 <?php get_header(); ?>
 	
-	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+	<?php get_template_part( 'template--recommendation-feature' ); ?>
 
-	Featured Event related to the collection: i.e., Gaming Event for Games, Book Club for Books / Audiobooks, Live Band for Music ...
+	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 	<!-- Browse the Catalog
 	======================
-	-->	<section class="catalog search">
+	-->	<section class="catalog search shadow">
 
 			<div class="wrap clearfix">
 
 				<div class="fourcol first">
 				<header class="gamma no-margin">
 					<em>
-					<?php if ( is_page( 'games' ) ) : ?>
+					<?php if ( is_page( 'books' ) ) : ?>
+						Find something to read
+					<?php elseif ( is_page( 'games' ) ) : ?>
 						Search for a Game!
 					<?php else : ?>
 						Search the Catalog
@@ -30,8 +32,8 @@ Template Name: Collection
 
 				<div class="eightcol last">
 					<form class="align-left" role="search" method="get" id="searchform" action="#">
-					    <input type="search" value="" name="s" id="s" placeholder="<?php echo esc_attr__('Harry Potter ...','bonestheme') ?>" x-webkit-speech speech />
-					    <input class="search-button" type="submit" id="searchsubmit" value="<?php echo esc_attr__('Find') ?>" />
+					    <input type="search" value="" name="s" id="s" placeholder="<?php echo esc_attr__('Enders Game, Hyperion, Mark Twain, etc ...', 'bonestheme') ?>" x-webkit-speech speech />
+					    <input class="search-button" type="submit" id="searchsubmit" value="<?php echo esc_attr__('Go') ?>" />
 				    </form>
 			    </div>
 
@@ -41,7 +43,11 @@ Template Name: Collection
 
 			<div id="content">
 			
+			
 				<div id="inner-content" class="wrap clearfix">
+
+					<?php if ( is_page( array( 'audiobooks', 'books', 'genealogy' ) ) ) { get_template_part( 'template--recommendations' ); }?>
+
 			
 				    <div id="main" class="sevencol first clearfix" role="main">
 					    
@@ -49,12 +55,13 @@ Template Name: Collection
 					    <article id="post-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="article" itemscope itemtype="http://schema.org/BlogPosting">
 						
 						    <header class="article-header">
-								<h1 class="page-title tera" itemprop="headline">
+								<!--<h1 class="page-title tera" itemprop="headline">
 									<em><?php the_title(); ?></em>
-								</h1>
+								</h1>-->
 						    </header> <!-- end article header -->
 					
 						    <section class="post-content clearfix" itemprop="articleBody">
+						    	Staff can feature best-seller lists, relevant events, FAQs about the collection (like games), etc.
 							    <?php the_content(); ?>
 							</section> <!-- end article section -->
 						
@@ -68,7 +75,7 @@ Template Name: Collection
 					
 					    </article> <!-- end article -->	
 
-
+<!--
 						<section>
 							<header>
 								<h2 class="mega">
@@ -91,38 +98,11 @@ Template Name: Collection
 								An embedded form - right hurr!
 							</p>
 						</section>
-			
+	-->		
     				</div> <!-- end #main -->
 
-					<div class="fivecol last">
-						<div>
-							Featured Item with Trailer
-							<img src="//placehold.it/570x321" style="width: 100%;">
-						</div>
-
-						<div>
-							Michael just rated Item a "Masterpiece!"<br>
-							Put It on Hold
-						</div>
-
-						<div>
-							LeThesha just rated Item a "Masterpiece!"<br>
-							Put It on Hold
-						</div>
-
-						<div>
-							Julie just rated Item a "Masterpiece!"<br>
-							Put It on Hold
-						</div>
-
-						<div>
-							Want to review something?
-						</div>
-
-						<div>
-						Related Database
-						<img src="//placehold.it/570x321" style="width: 100%;">
-						</div>
+					<div class="fivecol last media">
+					
 					</div>
 				    
 				</div> <!-- end #inner-content -->

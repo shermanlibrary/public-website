@@ -1,17 +1,15 @@
-<div class="sidebar fivecol last clearfix" role="complementary">
-	<div class="contrast-against-dark">
+<div class="sidebar fourcol last clearfix" role="complementary">
+
+	<?php get_template_part('template--info-panels'); ?>
 
 	<section class="stack-blocks" style="padding-bottom: 2em;" >
 
 		<p>
-			Need a library card? GET ONE RIGHT NAU!!!! MEOW MEOW.
+			TODO: Subscribe to our newsletter
 		</p>
-		<a class="button zeta" href="<?php echo home_url(); ?>/about">Learn More</a>
+
 	</section>
 
-	<img src="http://placehold.it/450x253" style="width:100%;">
-
-	<img src="http://placehold.it/450x253" style="width:100%;">
 
 	<!-- Featured Databases
 	======================
@@ -61,7 +59,5 @@
 		<!-- This content shows up if there are no widgets defined in the backend. -->
 		
 	<?php endif; ?>
-
-	</div>
 
 </div>

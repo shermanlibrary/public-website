@@ -1,5 +1,31 @@
 <?php get_header(); ?>
 
+	<section style="background-color:#313547; color:white; padding-top: 2em; padding-bottom: 2em;">
+
+		<div class="wrap clearfix">
+
+			<article>
+
+				<div class="sixcol first">
+					<div class="media" data-spotlight="database" data-category data-post="2"></div>
+				</div>
+
+				<div class="sixcol last">
+				<header>
+					<h3 class="no-margin post-title" style="color: white;">A Random Featured Database</h3>
+					<span class="delta author">filed under <a href="#" style="color: white;">Music</a> </span>
+				</header>
+					<p class="epsilon summary">
+						A brief excerpt associated with the database spotlight written to sell the usefulness
+						of this resource. It shouldn't be pedantic or too erudite, but written for actual 
+						people! This section will pull from all spotlights and it won't show on mobile.
+					</p>
+				</div>
+			</article>
+		</div>
+			
+	</section>
+
 	<!-- Browse the Catalog
 	======================
 	-->	<section class="catalog search shadow">
@@ -78,98 +104,20 @@
 
 		</nav>
 
-	<!-- The Loop
-	======================
-	--> <div id="content">
-		
-			<div id="inner-content" class="wrap clearfix">	
+		<div class="wrap clearfix">
 
-				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-			    
-			    <div class="eightcol last clearfix">
-
-				<!-- Helios Feed
-				======================
-				-->	<section class="feed">
-
-						<?php
-						$feed = fetch_feed( 'http://sherman.library.nova.edu/helios/rss/feed.php?l=15,11,12' ); 
-
-						if ( !is_wp_error( $feed ) ) :
-
-							$maxitems = $feed->get_item_quantity( 3 );
-							$feed_items = $feed->get_items( 0, $maxitems );
-
-						endif; 
-						?>
-
-						<ul class="feed">
-						<?php if ( $maxitems == 0 ) : ?>
-							<li> We're boring :( </li>
-						<?php else : ?>
-							<?php foreach ( $feed_items as $item ) : ?>
-							<?php 
-							/* Title of the Event */
-							$event_title = $item->get_title();			
-							$event_title_gibberish = '#(.*?-)(.*)#e';
-							$event_title = preg_replace($event_title_gibberish,"('$2')",$event_title);
-							
-							/* Date of the Event */
-							$event_date = $item->get_date('F j');
-							$event_day = $item->get_date('l');
-							$event_year = $item->get_date('Y');
-							$event_time = $item->get_date('g:i a');
-							
-							/* Description of the Event 
-							* Note: Some of the helios descriptions are pretty long. We only want to show a small excerpt and then provide a "Read More" link. We can use substr() to set a character limit. We can even nest that into strip_tags() to blast all the HTML that we've absorbed from the RSS feed. */
-							//$event_description = strip_tags(substr($item->get_description(), 0, 140));
-							$event_description = strip_tags($item->get_description());
-							//$event_description = substr($event_description, 0, 200);
-							$event_link = $item->get_permalink();
-							?>
-							<li class="clearfix has-date-stamp">
-
-								<div class="date-stamp">
-									<time>
-										<span><?php echo esc_html( $event_time ); ?></span>
-									</time>	
-									<div class="align-center event-date">
-										<div class="date">
-											<?php echo esc_html( $event_date ); ?>										</div>
-										<div class="day">
-											<?php echo esc_html( $event_day ); ?>
-											
-										</div>
-									</div>			
-								</div>											
-								<header>
-								<h3 style="font-style: italic;"><a  style="color:#4b5971;" href="<?php echo esc_url( $event_link ); ?>" title="<?php echo $event_title; ?>">
-									<?php echo esc_html( $event_title ); ?>
-								</a>
-								</h3>
-								</header>
-								<p class="description epsilon">
-									<?php echo esc_html($event_description); ?>
-								</p>
-							</li>
-							<?php endforeach; ?>
-						<?php endif; ?>
-						</ul>
-					</section>
-					    
-					    </div>
-
-						<?php endwhile; endif; ?>
-
-					<div class="fourcol first">
-
-						<?php get_sidebar( 'spotlight' ); ?>
-
-					</div>
-
-
-			</div> <!-- end #inner-content -->
-
-		</div> <!-- end #content -->	
+				<figure class="caption">
+					<blockquote>
+						<header>
+							<em class="gamma">A mini-mission statement about research</em>
+						</header>
+						<p class="delta">
+							A very short, positive blurb about how the library has
+							the resources and the expertise to help with all
+							kinds of research - academic or otherwise.
+						</p>
+					</blockquote>
+				</figure>
+		</div>
 
 <?php get_footer(); ?>

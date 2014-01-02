@@ -64,40 +64,42 @@
 		
 				// Content
 				$feature_description			=	$response['excerpt'];
-				$feature_imageTablet			=	$response['thumbnail_images']['feature-medium']['url'];
-				$feature_imageSquarescreen		=	$response['thumbnail_images']['feature-large']['url'];
-				$feature_imageWidescreen		=	$response['thumbnail_images']['feature-jumbo']['url'];
+				$feature_imageTablet			=	$response['thumbnail_images']['media-medium']['url'];
+				$feature_imageSquarescreen		=	$response['thumbnail_images']['media-large']['url'];
+				$feature_imageWidescreen		=	$response['thumbnail_images']['media-jumbo']['url'];
 				$feature_link					=	$response['custom_fields']['overlay_link'][0];
 				$feature_tagline				=	$response['custom_fields']['overlay_tagline'][0];
 				$feature_title					=	$response['custom_fields']['overlay_title'][0];
 
-				if ( $ua->isTablet ) { $feature_ress_image = $feature_imageTablet; } elseif ( $ua->isComputer ) { $feature_ress_image = $feature_imageWidescreen; } else { $feature_ress_image	= $feature_imagePhone; }
+				if ( $ua->isTablet ) { $feature_ress_image = $feature_imageTablet; } elseif ( $ua->isComputer ) { $feature_ress_image = $feature_imageTablet; } else { $feature_ress_image	= $feature_imagePhone; }
 
 				?>
 
-				<article class="feature feature-event" itemscope itemtype="http://schema.org/Event" style="background-image: url(<?php echo $feature_ress_image; ?>); ">				
-					<div class="wrap clearfix">
-							<div class="promotion <?php echo $feature_alignment ?> <?php echo ( $feature_show_desc === true ? 'has-excerpt' : '' ); ?>">
-								<header>
-									<h3 class="gamma promotion-title" itemprop="name"><?php echo $feature_title; ?></h3>
+				<section class="feature">
+					<div class="feature-event" style="background-image: url(<?php echo $feature_ress_image; ?>); width:66%;"></div>
+					<article class="card shadow" itemscope itemtype="http://schema.org/Event">				
 
-									<time class="delta" datetime="<?php echo $feature_date_start . ( $feature_multiday === true ? '-' . $feature_date_end : ''); ?>"> 
-										<span itemprop="startDate" content="<?php echo $feature_date_start ?>"><?php echo date('l, F j', strtotime($feature_date_start) ); ?></span> <?php echo ( $feature_multiday === false ? '' : '- ' . '<span itemprop="endDate" content="' . $feature_date_end . '">' . date('l, F j', strtotime($feature_date_end) ) . '</span>' ); ?>
-										<?php echo ( $feature_allday === false ? 'Not Allday' : '' ); ?>
-									</time>
+						<header>
+							<a href="<?php echo ( !$feature_link ? $response['url'] : $feature_link ); ?>" itemprop="url">
+								<h3 class="beta title" itemprop="name"><?php echo $feature_title; ?></h3>
+							</a>
 
-								</header>
-								
-								<?php if ( $ua->isComputer ) { echo ( $feature_show_desc === true ? '<p class="excerpt" itemprop="description">' . strip_tags( $feature_description ) . '</p>' : '' ); } ?>
-								
-								<a class="button green zeta" href="<?php echo $feature_link; ?>" itemprop="url">
-									<?php echo $feature_buttonText; ?>
-								</a>
+							<time class="delta" datetime="<?php echo $feature_date_start . ( $feature_multiday === true ? '-' . $feature_date_end : ''); ?>"> 
+								<span itemprop="startDate" content="<?php echo $feature_date_start ?>"><?php echo date('l, F j', strtotime($feature_date_start) ); ?></span> <?php echo ( $feature_multiday === false ? '' : '- ' . '<span itemprop="endDate" content="' . $feature_date_end . '">' . date('l, F j', strtotime($feature_date_end) ) . '</span>' ); ?>								
+							</time>
 
-							</div>
+						</header>
 
-					</div>
-				</article>
+						<div class="promotion <?php echo $feature_alignment ?> <?php echo ( $feature_show_desc === true ? 'has-excerpt' : '' ); ?>">
+							
+							<?php if ( $ua->isComputer ) { echo ( $feature_show_desc === true ? '<p class="excerpt" itemprop="description">' . strip_tags( $feature_description ) . '</p>' : '' ); } ?>
+
+						</div>
+
+						<a class="button coral" href="<?php echo ( !$feature_link ? $response['url'] : $feature_link ); ?>">Read More</a>
+
+					</article>
+				</section>
 						<?php endif; ?>
 					<?php endif; ?>
 				<?php endif; ?>

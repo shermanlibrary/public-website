@@ -25,12 +25,6 @@
 
 		<nav class="align-center clearfix">
 
-			<div class="panel one-fourth event">
-				<a class="align-bottom button epsilon" href="#">
-					Events
-				</a>
-			</div>
-
 			<div class="panel one-fourth books">					
 
 				<a class="align-bottom button epsilon" href="#">
@@ -38,8 +32,14 @@
 				</a>
 
 			</div>
-			
-			<div class="panel one-fourth research">
+
+			<div class="panel one-fourth event">
+				<a class="align-bottom button epsilon" href="<?php echo get_permalink( 108 ); ?>?for=kids">
+					Programs
+				</a>
+			</div>
+
+			<div class="panel one-fourth bus">
 
 				<a class="align-bottom button epsilon" href="#">
 					Homework Helpers
@@ -47,25 +47,25 @@
 
 			</div>
 
-			<div class="panel one-fourth" style="background-color: #75D4BA;">
+			<div class="panel one-fourth compose">
 				<a class="align-bottom button epsilon" href="#">
-					Schools
+					Teacher Resources
 				</a>
 			</div>
 
 		</nav>
-
-			<?php //get_template_part('template--info-panels'); ?>			
+		
 			<?php get_template_part('template--assorted-features'); ?>
 
 				<div class="wrap clearfix" style="margin-top:3em;">
+
 					<div class="fourcol first">
 						<?php get_sidebar('kids'); ?>
 					</div>
 			<div class="eightcol last">
 <!-- Helios Feed
 				======================
-				-->	<section class="feed">
+				-->	<section class="feed" style="margin-top: 5em;">
 
 						<?php
 						$feed = fetch_feed( 'http://sherman.library.nova.edu/helios/rss/feed.php?l=3,14,4' ); 

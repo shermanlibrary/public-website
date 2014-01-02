@@ -55,11 +55,11 @@
 	
 		<div id="container">
 
-		<?php if ( !$ua->isMobile ) { get_template_part('template--global-menu'); } ?>
+		<?php if ( !$ua->isMobile ) //{ get_template_part('template--global-menu'); } ?>
 			
 		<!-- Header
 		======================
-		-->	<header class="header <?php echo ( is_page() ? ( is_page( 'kids' ) || get_query_var( 'for' ) ? 'kids' : 'white' ) : 'white' ); ?>" role="banner">
+		-->	<header class="header <?php echo ( is_page() ? ( is_page( 'kids' ) || get_query_var( 'for' ) === 'kids' ? 'kids' : 'white' ) : 'white' ); ?>" role="banner">
 			
 				<div id="inner-header" class="wrap clearfix">
 
@@ -84,7 +84,7 @@
 									<?php elseif ( is_page( 'research' ) ) : ?> Research
 									<?php elseif ( is_page( 'services' ) || is_tree( 34 ) ) : ?> Services
 									<?php elseif ( is_page( 'collection' ) || is_tree( 118 ) ) : ?> Collection
-									<?php else : ?> Public
+									<?php else : ?> Beta
 									<?php endif; ?>
 								</span>		
 			
